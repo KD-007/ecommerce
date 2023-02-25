@@ -1,10 +1,10 @@
 import axios from "axios";
-import { BACKEND } from "../../utils/constData";
+
 
 export const addItemsToCart = (id,quantity , dec=false) => async (dispatch , getState)=>{
     let cartItems = getState().cartReducer.cartItems
     try {
-        const {data} = await axios.get(`${BACKEND}/api/v1/product/${id}`);
+        const {data} = await axios.get(`/api/v1/product/${id}`);
 
         let item = {
           product: data?.product._id,
@@ -84,7 +84,7 @@ export const removeItemFromCart = (id) => async (dispatch,getState) => {
   let cartItems = getState().cartReducer.cartItems
 
   try {
-    const {data} = await axios.get(`${BACKEND}/api/v1/product/${id}`);
+    const {data} = await axios.get(`/api/v1/product/${id}`);
     cartItems = cartItems.filter(i => i.product !== data.product._id );
 
     localStorage.setItem("cartItems", JSON.stringify(cartItems));

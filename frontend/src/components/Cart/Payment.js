@@ -18,7 +18,7 @@ import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import "./payment.css";
 import { Typography } from "@mui/material";
 import { notify } from "../../utils/Notification";
-import { BACKEND } from "../../utils/constData";
+
 
 const Payment = () => {
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
@@ -56,10 +56,10 @@ const Payment = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        withCredentials:true,
+        
       };
       const { data } = await axios.post(
-        `${BACKEND}/api/v1/payment/process`,
+        `/api/v1/payment/process`,
         paymentData,
         config
       );

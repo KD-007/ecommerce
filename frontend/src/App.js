@@ -38,7 +38,6 @@ import ProductReviews from './components/Admin/ProductReviews';
 import Contact from './components/layout/Contact/Contact';
 import About from './components/layout/About/About';
 import NotFound from './components/layout/Not Found/NotFound';
-import { BACKEND } from "./utils/constData";
 import MetaData from './components/layout/MetaData';
 
 
@@ -52,8 +51,8 @@ function App() {
 
   const getStripeApi = async()=>{
     try {
-      const config = { headers: { "Content-Type": "application/json" },withCredentials: true };
-      const {data} = await axios.get(`${BACKEND}/api/v1//stipeapikey`,config);
+      const config = { headers: { "Content-Type": "application/json" } };
+      const {data} = await axios.get(`/api/v1//stipeapikey`,config);
 
       setstripeApiKey(data.stripeApiKey);
     } catch (error) {
@@ -92,15 +91,15 @@ function App() {
       <Route path='/contact' element={<Contact/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='*' element={<NotFound/>}/>
-      <Route path='/account' element={ isAuthenticated==false ? <Navigate to="/LoginSignup" /> :<Profile/>}/>
-      <Route path='/profile/update' element={ isAuthenticated==false ? <Navigate to="/LoginSignup" /> :<UpdateProfile/>}/>
-      <Route path='/password/update' element={ isAuthenticated==false ? <Navigate to="/LoginSignup" /> :<UpdatePassword/>}/>
-      <Route path='/shipping' element={ isAuthenticated==false ? <Navigate to="/LoginSignup" /> :  <Shipping/>}/>
-      <Route path='/order/confirm' element={ isAuthenticated==false ? <Navigate to="/LoginSignup" /> :<ConfirmOrder/>}/>
-      <Route path='/order/:id' element={ isAuthenticated==false ? <Navigate to="/LoginSignup" /> : <OrderDetails/> }/>
-      <Route>{stripeApiKey && (<Route exact path="/process/payment" element={isAuthenticated==false ? (<Navigate to="/LoginSignup" />)  :(<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>) }/> )}</Route>
-      <Route path='/success' element={ isAuthenticated==false ? <Navigate to="/LoginSignup" /> :<OrderSuccess/>}/>
-      <Route path='/orders' element={ isAuthenticated==false ? <Navigate to="/LoginSignup" /> :<MyOrders/>}/>
+      <Route path='/account' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<Profile/>}/>
+      <Route path='/profile/update' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<UpdateProfile/>}/>
+      <Route path='/password/update' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<UpdatePassword/>}/>
+      <Route path='/shipping' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :  <Shipping/>}/>
+      <Route path='/order/confirm' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<ConfirmOrder/>}/>
+      <Route path='/order/:id' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> : <OrderDetails/> }/>
+      <Route>{stripeApiKey && (<Route exact path="/process/payment" element={isAuthenticated===false ? (<Navigate to="/LoginSignup" />)  :(<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>) }/> )}</Route>
+      <Route path='/success' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<OrderSuccess/>}/>
+      <Route path='/orders' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<MyOrders/>}/>
       <Route path='/password/forgot' element={<ForgotPassword/>}/>
       <Route path='/password/reset/:token' element={<ResetPassword/>}/>
       <Route path='/product/:id' element={<ProductDetails/>}/>
@@ -109,15 +108,15 @@ function App() {
       <Route path='/products/:keyword' element={<Products/>}/>
       <Route path='/LoginSignup' element={<LoginSignup/>}/>
 
-      <Route path='/admin/dashboard' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<Dashboard/>}/>
-      <Route path='admin/products' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<ProductList/>}/>
-      <Route path='admin/product' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<NewProduct/>}/>
-      <Route path='admin/product/:id' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<UpdateProduct/>}/>
-      <Route path='admin/orders' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<OrderList/>}/>
-      <Route path='admin/order/:id' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<ProcessOrder/>}/>
-      <Route path='admin/users' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<UsersList/>}/>
-      <Route path='admin/user/:id' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<UpdateUser/>}/>
-      <Route path='admin/reviews' element={isAuthenticated==false && role!="admin" ? <Navigate to="/LoginSignup" /> :<ProductReviews/>}/>
+      <Route path='/admin/dashboard' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<Dashboard/>}/>
+      <Route path='admin/products' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProductList/>}/>
+      <Route path='admin/product' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<NewProduct/>}/>
+      <Route path='admin/product/:id' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UpdateProduct/>}/>
+      <Route path='admin/orders' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<OrderList/>}/>
+      <Route path='admin/order/:id' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProcessOrder/>}/>
+      <Route path='admin/users' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UsersList/>}/>
+      <Route path='admin/user/:id' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UpdateUser/>}/>
+      <Route path='admin/reviews' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProductReviews/>}/>
       </Route>
     </Routes>
     <Footer/>

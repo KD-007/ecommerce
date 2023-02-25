@@ -12,9 +12,10 @@ process.on("uncaughtException",(err)=>{
 
 connectDatabase();
 
-const port  = process.env.PORT || 4000;
+const port  = process.env.PORT || 4000 ;
+
 const server = app.listen( port , ()=>{
-    console.log('listening on port '+process.env.PORT);
+    console.log('listening on port '+port);
 })
 
 process.on("unhandledRejection",(err)=>{

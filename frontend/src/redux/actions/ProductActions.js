@@ -1,12 +1,12 @@
 import axios from "axios";
-import { BACKEND } from "../../utils/constData";
+
  export const getProducts =(keyword="",currentPage=1,price=[0,3000],category, ratings=0)=> async (dispatch)=>{
    
     try {
       dispatch({
         type:"fetchProductRequest",
       })
-      let link = `${BACKEND}/api/v1/products?keyword=${keyword}&currentPage=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
+      let link = `/api/v1/products?keyword=${keyword}&currentPage=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
       if(category){
         link += `&category=${category}`;
       }
@@ -37,7 +37,7 @@ import { BACKEND } from "../../utils/constData";
       dispatch({
         type:"fetchSingleProductRequest",
       })
-      const {data} = await axios.get(`${BACKEND}/api/v1/product/${id}`);
+      const {data} = await axios.get(`/api/v1/product/${id}`);
         dispatch({
           type:"fetchSingleProductSuccess",
           payload:{
@@ -61,8 +61,8 @@ import { BACKEND } from "../../utils/constData";
         type:"newReviewRequest",
       })
     
-      const config = { headers: { "Content-Type": "application/json" },withCredentials: true };
-      const {data} = await axios.post(`${BACKEND}/api/v1/product/review`, 
+      const config = { headers: { "Content-Type": "application/json" }, };
+      const {data} = await axios.post(`/api/v1/product/review`, 
             reviewData,
             config
             );
@@ -90,9 +90,9 @@ import { BACKEND } from "../../utils/constData";
       dispatch({
         type:"fetchProductRequest",
       })
-      const config = { headers: { "Content-Type": "application/json" },withCredentials: true};
+      const config = { headers: { "Content-Type": "application/json" },};
       const { data } = await axios.get(
-        `${BACKEND}/api/v1/admin/products`,
+        `/api/v1/admin/products`,
         config
       );
      
@@ -124,9 +124,9 @@ export const createProduct = (newProduct) => async (dispatch) => {
     dispatch({
       type:"newProductRequest",
     })
-    const config = { headers: { "Content-Type": "application/json" },withCredentials: true};
+    const config = { headers: { "Content-Type": "application/json" },};
     const { data } = await axios.post(
-      `${BACKEND}/api/v1/admin/product/new`,
+      `/api/v1/admin/product/new`,
       newProduct,
       config
     );
@@ -149,9 +149,9 @@ export const deleteProduct =  (id)=> async (dispatch) => {
   dispatch({
     type:"productDeleteRequest",
   })
-  const config = { headers: { "Content-Type": "application/json" },withCredentials: true};
+  const config = { headers: { "Content-Type": "application/json" },};
   const { data } = await axios.delete(
-    `${BACKEND}/api/v1/admin/product/${id}`,
+    `/api/v1/admin/product/${id}`,
     config
   );
   console.log(data)
@@ -174,9 +174,9 @@ export const updateProduct = (updatedData , id) =>async (dispatch)=>{
     dispatch({
       type:"updateProductRequest",
     })
-    const config = { headers: { "Content-Type": "application/json" },withCredentials: true};
+    const config = { headers: { "Content-Type": "application/json" },};
     const { data } = await axios.put(
-      `${BACKEND}/api/v1/admin/product/${id}`,
+      `/api/v1/admin/product/${id}`,
       updatedData,
       config
     );
@@ -201,9 +201,9 @@ export const getAllReviews = (id)=> async(dispatch)=>{
   dispatch({
     type:"allReviewRequest",
   })
-  const config = { headers: { "Content-Type": "application/json" },withCredentials: true};
+  const config = { headers: { "Content-Type": "application/json" },};
   const { data } = await axios.get(
-    `${BACKEND}/api/v1/reviews?id=${id}`,
+    `/api/v1/reviews?id=${id}`,
     config
   );
     dispatch({
@@ -223,9 +223,9 @@ export const deleteReviews = (id , productID)=>async (dispatch)=>{
     dispatch({
       type:"deleteReviewRequest",
     })
-    const config = { headers: { "Content-Type": "application/json" },withCredentials: true};
+    const config = { headers: { "Content-Type": "application/json" },};
     const { data } = await axios.delete(
-      `${BACKEND}/api/v1/reviews?id=${id}&productID=${productID}`,
+      `/api/v1/reviews?id=${id}&productID=${productID}`,
       config
     );
       dispatch({

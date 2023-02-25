@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const errorMiddleware = require('./middleware/error'); 
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 const dotenv= require("dotenv");
+const path = require('path');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -16,23 +16,6 @@ app.use(
   );
   
 
-  app.use(
-    cors({
-      origin: process.env.FRONTEND_URL,
-      credentials: true,
-      methods: ["GET", "POST", "PUT", "DELETE"],
-    })
-  );
-  
-  
-  app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', `${process.env.FRONTEND_URL2}`);
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.header('Access-Control-Allow-Credentials', 'true');
-    next();
-  });
-
 const product = require("./routes/productRoutes");
 const user = require("./routes/userRoutes");
 const order = require("./routes/orderRoutes");
@@ -43,8 +26,18 @@ app.use("/api/v1" , user);
 app.use("/api/v1" , order);
 app.use("/api/v1" , payment);
 
+
+
 app.use(errorMiddleware);
 
+app.use(express.static(path.join(__dirname,"./frontend/build")));
 
+
+app.get("*" , (req,res)=>{
+  res.sendFile(path.join(__dirname , "./frontend/build/index.html")),
+  function(err){
+    res.status(500).send(err.message);
+  }
+});
 
 module.exports = app;
