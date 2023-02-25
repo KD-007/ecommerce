@@ -57,7 +57,7 @@ const NewProduct = () => {
     data.append('upload_preset', 'f6qooums');
     try {
 
-      let res = await fetch("http://api.cloudinary.com/v1_1/dojvydh84/image/upload", {
+      let res = await fetch("https://api.cloudinary.com/v1_1/dojvydh84/image/upload", {
             method:"post",
             body:data
       })
