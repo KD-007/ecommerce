@@ -1,5 +1,5 @@
 const app = require('./app');
-const connectDatabase = require('./database');
+const mongoose = require('mongoose');
 
 
 
@@ -10,7 +10,17 @@ process.on("uncaughtException",(err)=>{
 })
 
 
-connectDatabase();
+
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.DB_URL,{
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      }).then(()=>{
+        console.log("database is connected");
+    }).catch((e)=>{
+        console.log("error connecting to database" ,e);
+    });
+
 
 const port  = process.env.PORT || 4000 ;
 
