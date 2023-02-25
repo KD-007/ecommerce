@@ -12,6 +12,7 @@ process.on("uncaughtException",(err)=>{
 
 
 mongoose.set('strictQuery', true);
+
 mongoose.connect(process.env.DB_URL,{
         useNewUrlParser: true,
         useUnifiedTopology: true

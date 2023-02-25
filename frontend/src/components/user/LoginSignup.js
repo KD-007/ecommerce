@@ -57,10 +57,10 @@ const LoginSignup = () => {
   const uploadImage = async (image)=>{
     const data = new FormData();
     data.append('file' , image);
-    data.append('upload_preset', 'fzhcr1nb');
+    data.append('upload_preset', 'f6qooums');
     try {
-      setuploadingImage(true)
-      let res = await fetch("http://api.cloudinary.com/v1_1/dsyz3bvhp/image/upload", {
+
+      let res = await fetch("http://api.cloudinary.com/v1_1/dojvydh84/image/upload", {
             method:"post",
             body:data
       })
