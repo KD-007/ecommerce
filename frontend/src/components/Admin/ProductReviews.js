@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import "./productReviews.css";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearErrors,
@@ -127,20 +126,25 @@ const ProductReviews = () => {
 
   return (
     <Fragment>
-      <MetaData title={`ALL REVIEWS - Admin | E-Commerce`} />
+      <MetaData title={`ALL REVIEWS - Admin | Foodiee`} />
 
-      <div className="dashboard">
+      <div className="row w-100">
         <SideBar />
-        <div className="productReviewsContainer">
+        <div className="col-md-10 mt-5 pt-3">
+        <div className="row justify-content-center mb-5 ">
+          <div className="col-md-6">
           <form
-            className="productReviewsForm"
             onSubmit={productReviewsSubmitHandler}
           >
-            <h1 className="productReviewsFormHeading">ALL REVIEWS</h1>
+            <h1 className="text-center">ALL REVIEWS</h1>
 
-            <div>
-              <Star />
+            <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <Star />
+                    </div>
+              
               <input
+                className="form-control"
                 type="text"
                 placeholder="Product Id"
                 required
@@ -150,7 +154,7 @@ const ProductReviews = () => {
             </div>
 
             <Button
-              id="createProductBtn"
+              className="btn bg-warning text-light w-100"
               type="submit"
               disabled={
                 loading ? true : false || productId === "" ? true : false
@@ -159,6 +163,8 @@ const ProductReviews = () => {
               Search
             </Button>
           </form>
+          </div>
+          </div>
 
           {reviews && reviews.length > 0 ? (
             <DataGrid
@@ -166,11 +172,10 @@ const ProductReviews = () => {
               columns={columns}
               pageSize={10}
               disableSelectionOnClick
-              className="productListTable"
               autoHeight
             />
           ) : (
-            <h1 className="productReviewsFormHeading">No Reviews Found</h1>
+            <h5 className="text-center py-5">No Reviews Found</h5>
           )}
         </div>
       </div>

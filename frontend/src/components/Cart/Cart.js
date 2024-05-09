@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import "./cart.css";
 import CartItemCard from "./CartItemCard";
 import { useSelector, useDispatch } from "react-redux";
 import { addItemsToCart, clearErrorsCart, removeItemFromCart } from "../../redux/actions/cartActions";
@@ -44,65 +43,51 @@ const Cart = () => {
   return (
     <>
       {!cartItems || cartItems?.length === 0 ? (
-        <div className="emptyCart">
-          <RemoveShoppingCartIcon />
+        <div className="container mt-5 pt-5 h-50">
+              <div className="text-center" >
+              <RemoveShoppingCartIcon />
 
-          <Typography>No Product in Your Cart</Typography>
-          <Link to="/products">View Products</Link>
+              <Typography>No Product in Your Cart </Typography>
+
+              <Link className="text-decoration-none" to="/products"> View Products</Link>
+              </div>
         </div>
       ) : (
         <>
-          <div className="cartPage">
-            <div className="cartHeader">
-              <p>Product</p>
-              <p>Quantity</p>
-              <p>Subtotal</p>
+          <div className="container pt-5 mt-5 h-50">
+            <div className="bg-secondary w-100 text-light p-2 my-2 rounded">
+              <b>Cart Items</b>
             </div>
 
             {cartItems &&
               cartItems.map((item) => (
-                <div className="cartContainer" key={item.product}>
-                  <CartItemCard item={item} deleteCartItems={deleteCartItems} />
-                  <div className="cartInput">
-                    <button
-                      onClick={() =>
-                        decreaseQuantity(item.product, item.quantity)
-                      }
-                    >
-                      -
-                    </button>
-                    <span style={{margin: "1vmax"}}>{item.quantity}</span>
-                    <button
-                      onClick={() =>
-                        increaseQuantity(
-                          item.product,
-                        )
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
-                  <p className="cartSubtotal">{`₹${
-                    item.price * item.quantity
-                  }`}</p>
+                <div className="row w-100 my-2 py-1 border-bottom" key={item.product}>
+                  <CartItemCard item={item} deleteCartItems={deleteCartItems} decreaseQuantity={decreaseQuantity} increaseQuantity={increaseQuantity} />
                 </div>
               ))}
 
-            <div className="cartGross">
-              <div></div>
-              <div className="cartGrossBox">
-                <p>Gross Total</p>
-                <p>{`₹${cartItems.reduce(
+            <div className=" w-100 d-flex justify-content-between border-top pt-3 ">
+                <div >Gross Total :
+                {`₹${cartItems.reduce(
                   (acc, item) => acc + item.quantity * item.price,
                   0
-                )}`}</p>
-              </div>
-              <div></div>
-              <div className="checkOutBtn">
-                <button onClick={checkoutHandler}>Check Out</button>
+                )}`}</div>
+                <div >
+                <button onClick={checkoutHandler} className="btn btn-warning text-light ">Check Out</button>
+
+                </div>
               </div>
             </div>
-          </div>
+
+
+
+  
+
+
+
+
+
+
         </>
       )}
     </>

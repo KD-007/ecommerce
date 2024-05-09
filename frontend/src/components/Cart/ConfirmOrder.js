@@ -2,9 +2,9 @@ import React from "react";
 import CheckoutSteps from "./CheckoutSteps";
 import { useSelector } from "react-redux";
 import MetaData from "../layout/MetaData";
-import "./ConfirmOrder.css";
+
 import { Link, useNavigate } from "react-router-dom";
-import { Typography } from "@mui/material";
+
 
 const ConfirmOrder = () => {
   const { shippingInfo, cartItems } = useSelector((state) => state.cartReducer);
@@ -39,38 +39,38 @@ const ConfirmOrder = () => {
 
   return (
     <>
-      <MetaData title="Confirm Order | E-commerce" />
+      <MetaData title="Confirm Order | Foodie" />
       <CheckoutSteps activeStep={1} />
-      <div className="confirmOrderPage">
-        <div>
-          <div className="confirmshippingArea">
-            <Typography>Shipping Info</Typography>
-            <div className="confirmshippingAreaBox">
+      <div className="row w-100">
+        <div className="col-lg-8" >
+          <div className="row ps-5 pt-5">
+            <b>Shipping Info:</b>
+            <div>
               <div>
-                <p>Name:</p>
-                <span>{user.name}</span>
+                <p><b>Name: </b><span>{user.name}</span></p>
               </div>
               <div>
-                <p>Phone:</p>
-                <span>{shippingInfo.phoneNo}</span>
+                <p> <b>Phone:</b> <span>{shippingInfo.phoneNo}</span></p>
+                
               </div>
               <div>
-                <p>Address:</p>
-                <span>{address}</span>
+                <p><b>Address: </b><span>{address}</span></p>
+                
               </div>
             </div>
           </div>
-          <div className="confirmCartItems">
-            <Typography>Your Cart Items:</Typography>
-            <div className="confirmCartItemsContainer">
+          <div className="row ps-5 pt-5">
+            <b>Your Cart Items:</b>
+            <div className="row">
               {cartItems &&
                 cartItems.map((item) => (
-                  <div key={item.product}>
-                    <img src={item.image} alt="Product" />
-                    <Link to={`/product/${item.product}`}>
-                      {item.name}
-                    </Link>{" "}
-                    <span>
+                  <div key={item.product} className="py-2 border-bottom">
+                            <img className="img-responsive" src={item.image} alt="ProductImage" style={{maxWidth:"120px"}} />
+
+                    <Link to={`/product/${item.product}`}
+                      className="text-decoration-none text-dark"> <b >{item.name} </b></Link>{"  "}
+      
+                    <span className="float-end mt-4">
                       {item.quantity} x ₹{item.price} ={" "}
                       <b>₹{item.price * item.quantity}</b>
                     </span>
@@ -80,32 +80,30 @@ const ConfirmOrder = () => {
           </div>
         </div>
         {/*  */}
-        <div>
-          <div className="orderSummary">
-            <Typography>Order Summery</Typography>
+        <div className="col-lg-4">
+          <div className="row ps-5 pt-5 border">
+            <b>Order Summery:</b>
             <div>
-              <div>
-                <p>Subtotal:</p>
-                <span>₹{subtotal}</span>
+              <div className="d-flex justify-content-between pe-2">
+                <b>Subtotal:</b>
+                <span>₹{subtotal} </span>
               </div>
-              <div>
-                <p>Shipping Charges:</p>
+              <div className="d-flex justify-content-between pe-2">
+                <b>Shipping Charges:</b>
                 <span>₹{shippingCharges}</span>
               </div>
-              <div>
-                <p>GST:</p>
+              <div className="d-flex justify-content-between pe-2">
+                <b>GST:</b>
                 <span>₹{Math.round(tax * 100) / 100}</span>
               </div>
             </div>
-
-            <div className="orderSummaryTotal">
-              <p>
+                <div className="border my-3"></div>
+            <div className="d-flex justify-content-between pe-2">
                 <b>Total:</b>
-              </p>
               <span>₹{Math.round(totalPrice * 100) / 100}</span>
             </div>
 
-            <button onClick={proceedToPayment}>Proceed To Payment</button>
+            <button className="btn btn-warning my-3  text-light" onClick={proceedToPayment}>Proceed To Payment</button>
           </div>
         </div>
       </div>

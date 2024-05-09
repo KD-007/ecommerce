@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./Products.css";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, getProducts } from "../../redux/actions/ProductActions";
 import Loader from "../layout/Loader/Loader";
@@ -11,12 +10,10 @@ import MetaData from "../layout/MetaData";
 import { notify } from "../../utils/Notification";
 
 const categories = [
-  "Laptops",
-  "Footwears",
-  "Clothes",
-  "Smartphones",
-  "Accessories",
-  "Electronics",
+  "Appetizers",
+  "Mains",
+  "Desserts",
+  "Beverages"
 ];
 
 const Products = () => {
@@ -69,44 +66,47 @@ const Products = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="PRODUCTS -- ECOMMERCE" />
-          <h2 className="productsHeading">Products</h2>
+          <MetaData title="Menu -- Foodiee" />
+          <h2 className="text-center pt-5 mt-5">Products</h2>
 
-          <div className="products">
-            {products &&
-              products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-          </div>
+          <div className="row w-100">
 
-          <div className="filterBox">
-            <Typography>Price</Typography>
+            <div className=" col-12 col-lg-3">
+            <div className="container">
 
-            <Slider
-              onChange={priceHandler}
-              value={price}
-              aria-labelledby="range-slider"
-              // aria-label="Small"
-              getAriaLabel={() => 'Price range'}
-              valueLabelDisplay="auto"
-              min={0}
-              max={3000}
-            />
+              <div className="container">
+              <Typography>Price</Typography>
+
+                  <Slider
+                    onChange={priceHandler}
+                    value={price}
+                    aria-labelledby="range-slider"
+                    // aria-label="Small"
+                    getAriaLabel={() => 'Price range'}
+                    valueLabelDisplay="auto"
+                    min={0}
+                    max={3000}
+                  />
+              </div>
+
+
 
             <Typography>Categories</Typography>
-            <ul className="categoryBox">
-              {categories.map((category) => (
+
+            <ul className="list-group list-group-flush">
+            {categories.map((category) => (
                 <li
-                  className="category-link"
+                  className="list-group-item "
                   key={category}
                   onClick={() => setCategory(category)}
                 >
-                  {category}
+                  <button className="nav-link" href="#">{category}</button>
                 </li>
               ))}
             </ul>
 
-            <fieldset>
+              <br />
+            
               <Typography component="legend">Ratings Above</Typography>
               <Slider
                 value={ratings}
@@ -118,11 +118,31 @@ const Products = () => {
                 min={0}
                 max={5}
               />
-            </fieldset>
+            
           </div>
+            </div>
+          <div className="col-12 col-lg-9">
+          <div className=" row container" id="container">
+            
+            {products && products.map((product)=>{
+              return <div className="col-6 col-lg-3 ">
+                <ProductCard key={product?._id} product={product}/>
+              </div>
+            })}
+          </div>
+
+          </div>
+          </div>
+
+{/* ------------ */}
+
+            
+            
+
           {resultPerPage < count && (
-            <div className="paginationBox">
-              <Pagination
+            <div className="container"  style = {{maxWidth:"300px"}} >
+              <Pagination 
+              
                 activePage={currentPage}
                 itemsCountPerPage={resultPerPage}
                 totalItemsCount={productCount}
@@ -138,6 +158,9 @@ const Products = () => {
               />
             </div>
           )}
+
+
+
         </Fragment>
       )}
       <Outlet/>

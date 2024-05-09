@@ -1,65 +1,50 @@
 import React from 'react'
-import "./sidebar.css"
 import {Link} from "react-router-dom"
-import logo from "../../images/logo.png";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ImportExportIcon from '@mui/icons-material/ImportExport';
-import PostAddIcon from '@mui/icons-material/PostAdd';
-import AddIcon from '@mui/icons-material/Add';
-import ListAltIcon from '@mui/icons-material/ListAlt';
-import PeopleIcon from '@mui/icons-material/People';
-import RateReviewIcon from '@mui/icons-material/RateReview';
-import TreeItem from '@mui/lab/TreeItem';
 
 const Sidebar = () => {
   return (
-    <div className="sidebar">
-        <Link to="/">
-        <img src={logo} alt="Ecommerce" />
 
-        </Link>
-        <Link to="/admin/dashboard">
-        <p>
-
-        <DashboardIcon/> Dashboard
-        </p>
-        </Link>
-        <Link>
-        <TreeView
-          defaultCollapseIcon={<ExpandMoreIcon />}
-          defaultExpandIcon={<ImportExportIcon />}
-        >
-          <TreeItem nodeId="1" label="Products">
-            <Link to="/admin/products">
-              <TreeItem nodeId="2" label="All" icon={<PostAddIcon />} />
-            </Link>
-
-            <Link to="/admin/product">
-              <TreeItem nodeId="3" label="Create" icon={<AddIcon />} />
-            </Link>
-          </TreeItem>
-        </TreeView>
-      </Link>
-      <Link to="/admin/orders">
-        <p>
-          <ListAltIcon />
-          Orders
-        </p>
-      </Link>
-      <Link to="/admin/users">
-        <p>
-          <PeopleIcon /> Users
-        </p>
-      </Link>
-      <Link to="/admin/reviews">
-        <p>
-          <RateReviewIcon />
-          Reviews
-        </p>
-      </Link>
-    </div>
+    // ----------------------------------------------------
+    <div className="col-md-2 mt-5 pt-5  border">
+              <ul className="list-unstyled ps-0">
+                <li className="m-2 p-2 border-bottom">
+                  <Link to="/admin/dashboard" className="nav-link link-dark ">
+                    <i className="bi bi-speedometer2 "></i> 
+                      <span>Dashboard</span>
+                  </Link>
+                </li>
+                <li className="m-2 p-2 border-bottom">
+                  <Link className=" nav-link link-dark" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                    <i className="bi bi-building"></i> Products
+                  </Link>
+                  <div className="collapse" id="dashboard-collapse">
+                    <ul className="btn-toggle-nav list-unstyled fw-normal p-1 small">
+                      <li><Link  to="/admin/products" className="nav-link link-dark rounded p-2"> <i className="bi bi-border-all"></i> All Products</Link></li>
+                      <li><Link to="/admin/product" className="nav-link link-dark rounded p-2"> <i className="bi bi-plus"></i> Create</Link></li>
+                    </ul>
+                  </div>
+                </li>
+                <li className="m-2 p-2 border-bottom">
+                  <Link to="/admin/orders" className="nav-link link-dark ">
+                    <i className="bi bi-bricks"></i>
+                      <span>Orders</span>
+                  </Link>
+                </li>
+                
+                <li className="m-2 p-2 border-bottom">
+                  <Link to="/admin/users" className="nav-link link-dark ">
+                    <i className="bi bi-people-fill"></i>
+                      <span>Users</span>
+                  </Link>
+                </li>
+                <li className="m-2 p-2 border-bottom">
+                  <Link to="/admin/reviews" className="nav-link link-dark ">
+                    <i className="bi bi-journal-text"></i>
+                      <span>Reviews</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
   )
 }
 

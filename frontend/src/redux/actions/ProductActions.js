@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
  export const getProducts =(keyword="",currentPage=1,price=[0,3000],category, ratings=0)=> async (dispatch)=>{
    
     try {

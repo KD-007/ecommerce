@@ -15,7 +15,6 @@ import Profile from './components/user/Profile';
 import UpdateProfile from './components/user/UpdateProfile';
 import UpdatePassword from './components/user/UpdatePassword';
 import ForgotPassword from './components/user/ForgotPassword';
-import ResetPassword from './components/user/ResetPassword';
 import Cart from './components/Cart/Cart';
 import Shipping from './components/Cart/Shipping';
 import ConfirmOrder from './components/Cart/ConfirmOrder';
@@ -35,7 +34,6 @@ import OrderList from './components/Admin/OrderList';
 import UsersList from './components/Admin/UserList';
 import UpdateUser from './components/Admin/UpdateUser';
 import ProductReviews from './components/Admin/ProductReviews';
-import Contact from './components/layout/Contact/Contact';
 import About from './components/layout/About/About';
 import NotFound from './components/layout/Not Found/NotFound';
 import MetaData from './components/layout/MetaData';
@@ -51,7 +49,7 @@ function App() {
 
   const getStripeApi = async()=>{
     try {
-      const config = { headers: { "Content-Type": "application/json" } };
+      const config = { headers: { "Content-Type": "application/json" } ,};
       const {data} = await axios.get(`/api/v1//stipeapikey`,config);
 
       setstripeApiKey(data.stripeApiKey);
@@ -80,43 +78,43 @@ function App() {
 
   useEffect(()=>{
     dispatch(loadUser());
+    console.log(role)
     // eslint-disable-next-line
   },[])
   return (
     <BrowserRouter>
-    <MetaData title="E-Commerce" />
+    <MetaData title="Foodiee" />
     <Routes>
-      <Route path='/' element={<Header user={user} error = {error} />}>
+      <Route path='/' element={<Header isAuthenticated = {isAuthenticated} user={user} error = {error} />}>
       <Route index element={<Home/>}/>
-      <Route path='/contact' element={<Contact/>}/>
       <Route path='/about' element={<About/>}/>
       <Route path='*' element={<NotFound/>}/>
-      <Route path='/account' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<Profile/>}/>
-      <Route path='/profile/update' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<UpdateProfile/>}/>
-      <Route path='/password/update' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<UpdatePassword/>}/>
-      <Route path='/shipping' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :  <Shipping/>}/>
-      <Route path='/order/confirm' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<ConfirmOrder/>}/>
-      <Route path='/order/:id' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> : <OrderDetails/> }/>
+      <Route path='/account' element={ isAuthenticated !==true ? <Navigate to="/LoginSignup" /> :<Profile/>}/>
+      <Route path='/profile/update' element={ isAuthenticated !==true ? <Navigate to="/LoginSignup" /> :<UpdateProfile/>}/>
+      <Route path='/password/update' element={ isAuthenticated !==true ? <Navigate to="/LoginSignup" /> :<UpdatePassword/>}/>
+      <Route path='/shipping' element={ isAuthenticated !==true ? <Navigate to="/LoginSignup" /> :  <Shipping/>}/>
+      <Route path='/order/confirm' element={ isAuthenticated !==true ? <Navigate to="/LoginSignup" /> :<ConfirmOrder/>}/>
+      <Route path='/order/:id' element={ isAuthenticated !==true ? <Navigate to="/LoginSignup" /> : <OrderDetails/> }/>
       <Route>{stripeApiKey && (<Route exact path="/process/payment" element={isAuthenticated===false ? (<Navigate to="/LoginSignup" />)  :(<Elements stripe={loadStripe(stripeApiKey)}><Payment /></Elements>) }/> )}</Route>
-      <Route path='/success' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<OrderSuccess/>}/>
-      <Route path='/orders' element={ isAuthenticated===false ? <Navigate to="/LoginSignup" /> :<MyOrders/>}/>
+      <Route path='/success' element={ isAuthenticated !==true ? <Navigate to="/LoginSignup" /> :<OrderSuccess/>}/>
+      <Route path='/orders' element={ isAuthenticated !==true ? <Navigate to="/LoginSignup" /> :<MyOrders/>}/>
       <Route path='/password/forgot' element={<ForgotPassword/>}/>
-      <Route path='/password/reset/:token' element={<ResetPassword/>}/>
       <Route path='/product/:id' element={<ProductDetails/>}/>
       <Route path='/cart' element={<Cart/>}/>
       <Route path='/products' element={<Products/>}/>
       <Route path='/products/:keyword' element={<Products/>}/>
       <Route path='/LoginSignup' element={<LoginSignup/>}/>
 
-      <Route path='/admin/dashboard' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<Dashboard/>}/>
-      <Route path='admin/products' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProductList/>}/>
-      <Route path='admin/product' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<NewProduct/>}/>
-      <Route path='admin/product/:id' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UpdateProduct/>}/>
-      <Route path='admin/orders' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<OrderList/>}/>
-      <Route path='admin/order/:id' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProcessOrder/>}/>
-      <Route path='admin/users' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UsersList/>}/>
-      <Route path='admin/user/:id' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UpdateUser/>}/>
-      <Route path='admin/reviews' element={isAuthenticated===false && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProductReviews/>}/>
+
+      <Route path='/admin/dashboard' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<Dashboard/>}/>
+      <Route path='admin/products' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProductList/>}/>
+      <Route path='admin/product' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<NewProduct/>}/>
+      <Route path='admin/product/:id' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UpdateProduct/>}/>
+      <Route path='admin/orders' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<OrderList/>}/>
+      <Route path='admin/order/:id' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProcessOrder/>}/>
+      <Route path='admin/users' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UsersList/>}/>
+      <Route path='admin/user/:id' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<UpdateUser/>}/>
+      <Route path='admin/reviews' element={isAuthenticated !==true && role!=="admin" ? <Navigate to="/LoginSignup" /> :<ProductReviews/>}/>
       </Route>
     </Routes>
     <Footer/>

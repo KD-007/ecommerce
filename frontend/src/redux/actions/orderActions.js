@@ -3,8 +3,9 @@ import axios from "axios";
 
 export const createOrder = (order) =>async (dispatch)=>{
     try {
+      // console.log(order)
         dispatch({ type: "createOrderRequest" });
-        const config = { headers: { "Content-Type": "application/json" }, };
+        const config = { headers: { "Content-Type": "application/json" },  };
         const { data } = await axios.post(
           `/api/v1/order/new`,
           order,
@@ -34,7 +35,7 @@ export const clearErrors = () => async (dispatch) => {
 export const myOrders= ()=> async (dispatch) => {
   try {
     dispatch({ type: "myOrdersRequest" });
-    const config = { headers: { "Content-Type": "application/json" }, };
+    const config = { headers: { "Content-Type": "application/json" },   };
     const { data } = await axios.get(
       `/api/v1/orders/me`,
       config
@@ -54,7 +55,7 @@ export const myOrders= ()=> async (dispatch) => {
 export const getOrderDetails = (id)=> async (dispatch)=>{
   try {
     dispatch({ type: "myOrderDetailRequest" });
-    const config = { headers: { "Content-Type": "application/json" }, };
+    const config = { headers: { "Content-Type": "application/json" },   };
     const { data } = await axios.get(
       `/api/v1/order/${id}`,
       config
@@ -74,7 +75,7 @@ export const getOrderDetails = (id)=> async (dispatch)=>{
 export const getAllOrders= ()=> async (dispatch) => {
   try {
     dispatch({ type: "allOrdersRequest" });
-    const config = { headers: { "Content-Type": "application/json" }, };
+    const config = { headers: { "Content-Type": "application/json" },   };
     const { data } = await axios.get(
       `/api/v1/admin/orders`,
       config
@@ -93,7 +94,7 @@ export const getAllOrders= ()=> async (dispatch) => {
 export const updateOrder = (id,order)=>async (dispatch)=>{
   try {
     dispatch({ type: "updateorderRequest" });
-    const config = { headers: { "Content-Type": "application/json" }, };
+    const config = { headers: { "Content-Type": "application/json" },   };
     const { data } = await axios.put(
       `/api/v1/admin/order/${id}`,
       order,
@@ -113,7 +114,7 @@ export const updateOrder = (id,order)=>async (dispatch)=>{
 export const deleteOrder = (id)=>async (dispatch)=>{
   try {
     dispatch({ type: "orderDeleteRequest" });
-    const config = { headers: { "Content-Type": "application/json" }, };
+    const config = { headers: { "Content-Type": "application/json" },   };
     const { data } = await axios.delete(
       `/api/v1/admin/order/${id}`,
       config

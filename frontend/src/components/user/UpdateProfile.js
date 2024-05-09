@@ -1,8 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import "./updateProfile.css";
 import Loader from "../layout/Loader/Loader";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import FaceIcon from '@mui/icons-material/Face';
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, updateProfile, loadUser } from "../../redux/actions/UserActions";
 import MetaData from "../layout/MetaData";
@@ -89,56 +86,47 @@ const UpdateProfile = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="Update Profile | E-commerce" />
-          <div className="updateProfileContainer">
-            <div className="updateProfileBox">
-              <h2 className="updateProfileHeading">Update Profile</h2>
+          <MetaData title="Update Profile | Foodiee" />
 
-              <form
-                className="updateProfileForm"
-                encType="multipart/form-data"
-                onSubmit={updateProfileSubmit}
-              >
-                <div className="updateProfileName">
-                  <FaceIcon />
-                  <input
-                    type="text"
-                    placeholder="Name"
+
+          {/* ------------- */}
+          <div className="row justify-content-center mt-5 m-2 pt-5">
+            <div className=" col-md-6 mt-5 border shadow-lg  rounded-3  ">
+              <h2 className="text-center text-warning p-3 border-bottom" >Update Profile</h2>
+              <form className="p-3  signUpForm" style={{maxWidth:'700px'}} encType="multipart/form-data"
+                onSubmit={updateProfileSubmit}>
+        <div className="mb-3">
+          <label for="exampleInputname1" className="form-label">Name</label>
+          <input type="text" className="form-control" id="exampleInputname1" aria-describedby="nameHelp" placeholder="Name"
                     required
                     name="name"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
-                  />
-                </div>
-                <div className="updateProfileEmail">
-                  <MailOutlineIcon />
-                  <input
-                    type="email"
-                    placeholder="Email"
+                    onChange={(e) => setName(e.target.value)}/> 
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">Email address</label>
+          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"
                     required
                     name="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+                    onChange={(e) => setEmail(e.target.value)}/>
+        </div>
+        <div className="mb-3 d-flex" id="registerImage">
+          <img src={avatarPreview} className="rounded-5" style={{maxWidth:"60px"}} alt="Avatar Preview" />
+          <input
+            type="file"
+            name="avatar"
+            accept="image/*"
+            onChange={updateProfileDataChange}
+          />
+        </div>
+        <div className="text-center">
 
-                <div id="updateProfileImage">
-                  <img src={avatarPreview} alt="Avatar Preview" />
-                  <input
-                    type="file"
-                    name="avatar"
-                    accept="image/*"
-                    onChange={updateProfileDataChange}
-                  />
-                </div>
-                <input disabled={uploadingImage===true ? true : false}
-                  type="submit"
-                  value={uploadingImage===true ? "Please wait image is uploading" : "Update"}
-                  className="updateProfileBtn"
-                />
-              </form>
+          <button disabled={uploadingImage===true ? true : false} type="submit" value={ uploadingImage ?"please wait..." : "Update"} className="btn btn-outline-warning  fw-bold  signUpBtn ">Update</button>
+        </div>
+      </form>
             </div>
-          </div>
+            </div>
         </Fragment>
       )}
     </Fragment>

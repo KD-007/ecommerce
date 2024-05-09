@@ -15,8 +15,6 @@ import {
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import EventIcon from "@mui/icons-material/Event";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
-import "./payment.css";
-import { Typography } from "@mui/material";
 import { notify } from "../../utils/Notification";
 
 
@@ -54,9 +52,9 @@ const Payment = () => {
     try {
       const config = {
         headers: {
-          "Content-Type": "application/json",
-        },
-        
+          "Content-Type": "application/json"
+        }
+        , 
       };
       const { data } = await axios.post(
         `/api/v1/payment/process`,
@@ -119,34 +117,42 @@ const Payment = () => {
 
   return (
     <>
-      <Metadata title="Payment | E-Commerce" />
+      <Metadata title="Payment | Foodie" />
       <CheckoutSteps activeStep={2} />
-      <div className="paymentContainer">
+      <div className="row justify-content-center w-100 ">
+          <div className="col-md-6">
         <form
-          action=""
-          className="paymentForm"
           onSubmit={(e) => submitHandler(e)}
         >
-          <Typography>Card Info</Typography>
-          <div>
-            <CreditCardIcon />
-            <CardNumberElement className="paymentInput" />
+          <h2 className=" text-center mt-4 py-2 border-bottom" >Card Information</h2>
+
+          <div className="input-group mb-3 border">
+          <div className="input-group-prepend px-2">
+          <CreditCardIcon />
           </div>
-          <div>
+          <CardNumberElement className="form-control border-0" />
+        </div>
+
+        <div className="input-group mb-3 border">
+          <div className="input-group-prepend px-2">
             <EventIcon />
-            <CardExpiryElement className="paymentInput" />
+            </div>
+            <CardExpiryElement className="form-control border-0" />
           </div>
-          <div>
+          <div className="input-group mb-3 border">
+          <div className="input-group-prepend px-2">
             <VpnKeyIcon />
-            <CardCvcElement className="paymentInput" />
+            </div>
+            <CardCvcElement className="form-control border-0" />
           </div>
           <input
             type="submit"
             value={`Pay ₹${orderInfo && Math.round(orderInfo.totalPrice* 100)/100}`}
             ref={payBtn}
-            className="paymentFormBtn"
+            className="btn btn-warning w-100 text-light"
           />
         </form>
+      </div>
       </div>
     </>
   );

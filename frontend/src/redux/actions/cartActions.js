@@ -61,7 +61,7 @@ export const addItemsToCart = (id,quantity , dec=false) => async (dispatch , get
             localStorage.setItem("cartItems" , JSON.stringify(cartItems));    
         
       } catch (error) {
-        console.log(error)
+        // console.log(error)
         dispatch({
           type:"cartErros",
           payload:{
@@ -97,7 +97,7 @@ export const removeItemFromCart = (id) => async (dispatch,getState) => {
       }
     })
   } catch (error) {
-    console.log( "fbgf", error)
+    // console.log( "fbgf", error)
     dispatch({
       type:"cartErros",
       payload:{

@@ -41,12 +41,10 @@ const UpdateProduct = () => {
   const [uploadingImage, setuploadingImage] = useState(false);
 
   const categories = [
-    "Laptops",
-    "Clothes",
-    "Smartphones",
-    "Footwears",
-    "Accessories",
-    "Electronics",
+    "Appetizers",
+    "Mains",
+    "Desserts",
+    "Beverages"
   ];
 
   const productId = params.id;
@@ -136,77 +134,92 @@ const UpdateProduct = () => {
   };
   return (
     <Fragment>
-      <MetaData title="Update Product | E-commerce" />
-      <div className="dashboard">
+      <MetaData title="Update Product | Foodiee" />
+      <div className="row w-100">
         <SideBar />
-        <div className="newProductContainer">
+        <div className="col-md-10 mt-5 pt-5">
+        <div className="row justify-content-center ">
+          <div className="col-md-6">
           <form
-            className="createProductForm"
+            encType="multipart/form-data"
             onSubmit={updateProductSubmitHandler}
           >
-            <h1>Update Product</h1>
+            <h1 className="text-center">Update Product</h1>
 
-            <div>
-              <SpellcheckIcon />
-              <input
-                type="text"
-                placeholder="Product Name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+            <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <SpellcheckIcon />
+                    </div>
+                    <input type="text" 
+                    className="form-control" 
+                    placeholder="Product Name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    />
             </div>
-            <div>
-              <CurrencyRupeeIcon />
-              <input
-                type="number"
-                placeholder="Price"
-                required
-                onChange={(e) => setPrice(e.target.value)}
+            <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <CurrencyRupeeIcon />
+                    </div>
+                    <input 
+                    className="form-control" 
+                    type="number"
+                    min={1}
+                    placeholder="Price"
+                    required
+                    onChange={(e) => setPrice(e.target.value)}
                 value={price}
               />
             </div>
 
-            <div>
-              <DescriptionIcon />
-
-              <textarea
-                placeholder="Product Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                cols="30"
-                rows="1"
-              ></textarea>
+            <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <DescriptionIcon />
+                    </div>
+                    <textarea 
+                    className="form-control" 
+                    placeholder="Product Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    cols="30"
+                    rows="1"
+                    />
             </div>
 
-            <div>
-              <AccountTreeIcon />
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option value="">Choose Category</option>
-                {categories.map((cate) => (
-                  <option key={cate} value={cate}>
-                    {cate}
-                  </option>
-                ))}
-              </select>
+            <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <AccountTreeIcon />
+                    </div>
+                    <select className="form-select"
+                    onChange={(e) => setCategory(e.target.value)}>
+                    <option value="">Choose Category</option>
+                    {categories.map((cate) => (
+                      <option key={cate} value={cate}>
+                        {cate}
+                      </option>
+                    ))}
+                  </select>
             </div>
 
-            <div>
-              <StorageIcon />
-              <input
-                type="number"
-                placeholder="Stock"
-                required
-                onChange={(e) => setStock(e.target.value)}
+            <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <StorageIcon />
+                    </div>
+                    <input 
+                    className="form-control" 
+                    type="number"
+                    placeholder="Stock"
+                    min={1}
+                    required
+                    onChange={(e) => setStock(e.target.value)}
                 value={stock}
               />
             </div>
 
-            <div id="createProductFormFile">
+            <div className="mb-3">
               <input
+                className="form-control"
                 type="file"
                 name="avatar"
                 accept="image/*"
@@ -215,27 +228,29 @@ const UpdateProduct = () => {
               />
             </div>
 
-            <div id="createProductFormImage">
+            <div className="mb-3">
               {oldImages &&
                 oldImages.map((image, index) => (
-                  <img key={index} src={image} alt="Old Product Preview" />
+                  <img className="img-responsive m-1" key={index} src={image} alt="Old Product Preview" style={{maxWidth:"120px"}}/>
                 ))}
             </div>
 
-            <div id="createProductFormImage">
+            <div className="mb-3">
               {imagesPreview.map((image, index) => (
-                <img key={index} src={image} alt="Product Preview" />
+                <img className="img-responsive m-1" key={index} src={image} alt="Product Preview" style={{maxWidth:"120px"}} />
               ))}
             </div>
 
             <Button
-              id="createProductBtn"
+              className="btn bg-warning text-light w-100"
               type="submit"
               disabled={loading || uploadingImage ? true : false}
               >
                 {uploadingImage ? "Uploading..." : "Update"}
             </Button>
           </form>
+          </div>
+          </div>
         </div>
       </div>
     </Fragment>

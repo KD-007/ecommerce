@@ -1,25 +1,18 @@
 import React, { useState } from "react";
-import { useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {loginUser,registerUser} from "../../redux/actions/UserActions";
 import { useEffect } from "react";
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import LockOpenIcon from "@mui/icons-material/LockOpen";
-import FaceIcon from "@mui/icons-material/Face";
 import Loader from "../layout/Loader/Loader";
-import "./auth.css";
+// import "./auth.css";
 import MetaData from "../layout/MetaData";
 import { notify } from "../../utils/Notification";
+import Header from "../layout/Header/Header";
 
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const loginTab = useRef(null);
-  const registerTab = useRef(null);
-  const switcherTab = useRef(null);
 
   const { loading, isAuthenticated } = useSelector((state)=> state.getUser);
 
@@ -97,20 +90,41 @@ const LoginSignup = () => {
   }, [dispatch, isAuthenticated, navigate]);
 
   const switchTabs = (e, tab) => {
-    if (tab === "login") {
-      switcherTab.current.classList.add("shiftToNeutral");
-      switcherTab.current.classList.remove("shiftToRight");
+    const loginHead = document.querySelector('.login-switcher');
+    const registerHead = document.querySelector('.register-switcher');
+    const loginForm = document.querySelector('.loginForm');
+    const registerForm = document.querySelector('.signUpForm');
 
-      registerTab.current.classList.remove("shiftToNeutralForm");
-      loginTab.current.classList.remove("shiftToLeft");
+
+    if (tab === "login") {
+
+      loginHead.classList.remove('text-warning');
+      loginHead.classList.add('text-light');
+      loginHead.classList.add('bg-warning');
+
+      registerHead.classList.add('text-warning');
+      registerHead.classList.remove('text-light');
+      registerHead.classList.remove('bg-warning');
+      
+      loginForm.classList.remove('d-none');
+      registerForm.classList.add('d-none');
+
+
     }
     if (tab === "register") {
-      switcherTab.current.classList.remove("shiftToNeutral");
-      switcherTab.current.classList.add("shiftToRight");
+      registerHead.classList.remove('text-warning');
+      registerHead.classList.add('text-light');
+      registerHead.classList.add('bg-warning');
 
-      registerTab.current.classList.add("shiftToNeutralForm");
-      loginTab.current.classList.add("shiftToLeft");
+      loginHead.classList.add('text-warning');
+      loginHead.classList.remove('text-light');
+      loginHead.classList.remove('bg-warning');
+
+      registerForm.classList.remove('d-none');
+      loginForm.classList.add('d-none');
+
     }
+    
   };
 
   return (
@@ -119,93 +133,86 @@ const LoginSignup = () => {
         <Loader />
       ) : (
         <>
-        <MetaData title={`Login-Signup | E-Commerce`} />
-          <div className="LoginSignUpContainer">
-            <div className="LoginSignUpBox">
-              <div>
-                <div className="login_signUp_toggle">
-                  <p onClick={(e) => switchTabs(e, "login")}>LOGIN</p>
-                  <p onClick={(e) => switchTabs(e, "register")}>REGISTER</p>
-                </div>
-                <button ref={switcherTab}></button>
-              </div>
-              <form className="loginForm" ref={loginTab} onSubmit={loginSubmit}>
-                <div className="loginEmail">
-                  <MailOutlineIcon />
-                  <input
-                    type="email"
-                    placeholder="Email"
+        <MetaData title={`Login-Signup | Foodiee`} />
+
+          {/* ---------------------boot-------------------------- */}
+    <div className="row justify-content-center mt-5 m-2 pt-5">    
+    <div className=" col-md-6 mt-5 border shadow-lg  rounded-3  ">
+      <div className="row border-bottom w-100 ">
+        <div className="col-6 p-2 rounded text-center text-light bg-warning login-switcher " role="button" tabindex="0" onClick={(e) => switchTabs(e, "login")}  ><h3  >Login </h3></div>
+        <div className="col-6 p-2 rounded text-center  text-warning register-switcher" role="button" tabindex="0" onClick={(e) => switchTabs(e, "register")} ><h3  >Register </h3></div>
+      </div>
+      {/* <!-- login   --> */}
+      <div className="row w-100 justify-content-center " >
+      <form className="p-3 loginForm" style={{maxWidth:'700px'}} onSubmit={loginSubmit}>
+        <div className="mb-3">
+          
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">Email address</label>
+          <input type="email" className="form-control" id="exampleInputEmail1" placeholder="Email"
                     required
                     value={loginEmail}
-                    onChange={(e) => setLoginEmail(e.target.value)}
-                  />
-                </div>
-                <div className="loginPassword">
-                  <LockOpenIcon />
-                  <input
-                    type="password"
-                    placeholder="Password"
+                    onChange={(e) => setLoginEmail(e.target.value)} aria-describedby="emailHelp" /> 
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputPassword1" className="form-label">Password</label>
+          <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
                     required
                     value={loginPassword}
-                    onChange={(e) => setLoginPassword(e.target.value)}
-                  />
-                </div>
-                <Link to="/password/forgot">Forget Password ?</Link>
-                <input type="submit" value="Login" className="loginBtn" />
-              </form>
-              <form
-                className="signUpForm"
-                ref={registerTab}
-                encType="multipart/form-data"
-                onSubmit={registerSubmit}
-              >
-                <div className="signUpName">
-                  <FaceIcon />
-                  <input
-                    type="text"
-                    placeholder="Name"
+                    onChange={(e) => setLoginPassword(e.target.value)}/>
+        </div>
+        <Link to="/password/forgot">Forget Password ?</Link>
+        <div className="text-center">
+
+          <button type="submit" className="btn btn-outline-warning  fw-bold ">Login</button>
+        </div>
+      </form>
+      {/* <!-- signup --> */}
+      <form className="p-3 d-none signUpForm" style={{maxWidth:'700px'}} encType="multipart/form-data"
+                onSubmit={registerSubmit}>
+        <div className="mb-3">
+          <label for="exampleInputname1" className="form-label">Name</label>
+          <input type="text" className="form-control" id="exampleInputname1" aria-describedby="nameHelp" placeholder="Name"
                     required
                     name="name"
                     value={name}
-                    onChange={registerDataChange}
-                  />
-                </div>
-                <div className="signUpEmail">
-                  <MailOutlineIcon />
-                  <input
-                    type="email"
-                    placeholder="Email"
+                    onChange={registerDataChange}/> 
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputEmail1" className="form-label">Email address</label>
+          <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email"
                     required
                     name="email"
                     value={email}
-                    onChange={registerDataChange}
-                  />
-                </div>
-                <div className="signUpPassword">
-                  <LockOpenIcon />
-                  <input
-                    type="password"
-                    placeholder="Password"
+                    onChange={registerDataChange}/>
+        </div>
+        <div className="mb-3">
+          <label for="exampleInputPassword1" className="form-label">Password</label>
+          <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"
                     required
                     name="password"
                     value={password}
-                    onChange={registerDataChange}
-                  />
-                </div>
+                    onChange={registerDataChange}/>
+        </div>
+        <div className="mb-3 d-flex" id="registerImage">
+          <img src={imagePreview} className="rounded-5" style={{maxWidth:"60px"}} alt="Avatar Preview" />
+          <input
+            type="file"
+            name="avatar"
+            accept="image/*"
+            onChange={registerDataChange}
+          />
+        </div>
+        <div className="text-center">
 
-                <div id="registerImage">
-                  <img src={imagePreview} alt="Avatar Preview" />
-                  <input
-                    type="file"
-                    name="avatar"
-                    accept="image/*"
-                    onChange={registerDataChange}
-                  />
-                </div>
-                <input type="submit" value={ uploadingImage ?"please wait..." : "Register"} className="signUpBtn" />
-              </form>
-            </div>
-          </div>
+          <button type="submit" value={ uploadingImage ?"please wait..." : "Register"} className="btn btn-outline-warning  fw-bold  signUpBtn ">Register</button>
+        </div>
+      </form>
+
+    </div>
+    </div>
+    </div>  
         </>
       )}
       

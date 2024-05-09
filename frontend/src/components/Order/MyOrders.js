@@ -1,20 +1,19 @@
 import React, { Fragment, useEffect } from "react";
 import { DataGrid } from '@mui/x-data-grid';
-import "./myOrders.css";
 import { useSelector, useDispatch } from "react-redux";
 import { clearErrors, myOrders } from "../../redux/actions/orderActions";
 import Loader from "../layout/Loader/Loader";
-import { Link } from "react-router-dom";
-import { Typography } from "@mui/material";
+import { Link , useNavigate } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import LaunchIcon from "@mui/icons-material/Launch";
 import { notify } from "../../utils/Notification";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { loading, error, orders } = useSelector((state) => state.myordersReducer);
-  const { user } = useSelector((state) => state.getUser);
+  const { user , isAuthenticated} = useSelector((state) => state.getUser);
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
@@ -70,32 +69,32 @@ const MyOrders = () => {
     });
 
   useEffect(() => {
+
     if (error) {
       notify("error", error);
       dispatch(clearErrors());
     }
 
     dispatch(myOrders());
-  }, [dispatch, error]);
+  }, [dispatch, error , navigate, isAuthenticated]);
 
   return (
     <Fragment>
-      <MetaData title={`${user?.name} - Orders | E-commerce`} />
+      <MetaData title={`${user?.name} - Orders | Foodiee`} />
 
       {loading ? (
         <Loader />
       ) : (
-        <div className="myOrdersPage">
+        <div className="row my-5 py-5 w-100">
           <DataGrid
             rows={rows}
             columns={columns}
             pageSize={10}
             disableSelectionOnClick
-            className="myOrdersTable"
             autoHeight
           />
 
-          <Typography id="myOrdersHeading">{user?.name}'s Orders</Typography>
+          <h5 className="text-center bg-dark text-light py-1" ><b>{user?.name}'s Orders</b></h5>
         </div>
       )}
     </Fragment>

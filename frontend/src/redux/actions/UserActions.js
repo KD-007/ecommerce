@@ -5,7 +5,7 @@ import axios from "axios";
 export const loginUser = (email,password)=>async(dispatch)=>{
         try {
             dispatch({ type: "loginRequest" });
-            const config = { headers: { "Content-Type": "application/json" },};
+            const config = { headers: { "Content-Type": "application/json" },  };
             const { data } = await axios.post(
               `/api/v1/login`,
               { email, password },
@@ -24,7 +24,7 @@ export const loginUser = (email,password)=>async(dispatch)=>{
 export const registerUser = (userdata)=>async(dispatch)=>{
     try {
         dispatch({ type: "registerRequest" });
-        const config = { headers: { "Content-Type": "application/json" } };
+        const config = { headers: { "Content-Type": "application/json" } ,};
         const { data } = await axios.post(
           `/api/v1/register`,
           userdata,
@@ -43,8 +43,10 @@ export const registerUser = (userdata)=>async(dispatch)=>{
 
 export const loadUser = ()=>async(dispatch)=>{
     try {
+        console.log("object")
+
         dispatch({ type: "loadUserRequest" });
-        const config = { headers: { "Content-Type": "application/json" },};
+        const config = { headers: { "Content-Type": "application/json"}  ,  };
         const { data } = await axios.get(
           `/api/v1/me`,
           config
@@ -85,7 +87,7 @@ export const logout = ()=>async(dispatch)=>{
 export const updateProfile = (userdata)=>async(dispatch)=>{
     try {
         dispatch({ type: "updateProfileRequest" });
-        const config = { headers: { "Content-Type": "application/json" }, };
+        const config = { headers: { "Content-Type": "application/json" },  };
         const { data } = await axios.put(
           `/api/v1/me/update`,
           userdata,
@@ -141,24 +143,6 @@ export const forgotPassword = (userdata)=>async(dispatch)=>{
     }
 }
 
-export const resetPassword = (token , passwordData)=>async(dispatch)=>{
-    try {
-        dispatch({ type: "resetPasswordRequest" });
-        const config = { headers: { "Content-Type": "application/json" }, };
-        const { data } = await axios.put(
-          `/api/v1/password/reset/${token}`,
-          passwordData,
-          config
-        ); 
-        dispatch({ type: "resetPasswordSuccess", payload: data.message });
-        
-    } catch (error) {
-        dispatch({
-            type:"resetPasswordFail",
-            payload:error.response.data.message
-        })
-    }
-}
 
 export const clearErrors = () => async (dispatch) => {
     dispatch({

@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
@@ -119,19 +118,18 @@ const UsersList = () => {
 
   return (
     <Fragment>
-      <MetaData title={`ALL USERS - Admin | E-commerce`} />
+      <MetaData title={`ALL USERS - Admin | Foodiee`} />
 
-      <div className="dashboard">
+      <div className="row w-100">
         <SideBar />
-        <div className="productListContainer">
-          <h1 id="productListHeading">ALL USERS</h1>
+        <div className="col-md-10 mt-5 pt-3">
+          <h1 className="text-center">ALL USERS</h1>
 
           <DataGrid
             rows={rows}
             columns={columns}
             pageSize={10}
             disableSelectionOnClick
-            className="productListTable"
             autoHeight
           />
         </div>

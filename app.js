@@ -5,6 +5,13 @@ const cookieParser = require('cookie-parser');
 const dotenv= require("dotenv");
 const path = require('path');
 
+// var cors = require('cors')
+// app.use(cors({
+//   origin: ['http://localhost:3000'], // Frontend URL
+//   credentials: true // Allow cookies to be sent and received
+// }));
+
+
 app.use(express.json());
 app.use(cookieParser());
 dotenv.config();

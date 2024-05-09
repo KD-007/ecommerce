@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import "./productList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsAdmin ,clearErrors , deleteProduct } from "../../redux/actions/ProductActions";
 import { Link, useNavigate } from "react-router-dom";
@@ -120,19 +119,19 @@ const ProductList = () => {
 
   return (
     <>
-      <MetaData title={`ALL PRODUCTS - Admin | E-commerce`} />
+      <MetaData title={`ALL PRODUCTS - Admin | Foodiee`} />
 
-      <div className="dashboard">
+      <div className="row w-100">
         <SideBar />
-        <div className="productListContainer">
-          <h1 id="productListHeading">ALL PRODUCTS</h1>
+        <div className="col-md-10 mt-5 pt-3">
+          <h1 className="text-center">ALL PRODUCTS</h1>
 
           <DataGrid
             rows={rows}
             columns={columns}
             pageSize={10}
             disableSelectionOnClick
-            className="productListTable"
+
             autoHeight
           />
         </div>

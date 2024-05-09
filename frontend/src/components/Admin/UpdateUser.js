@@ -62,32 +62,40 @@ const UpdateUser = () => {
 
   return (
     <Fragment>
-      <MetaData title="Update User | E-Commerce" />
-      <div className="dashboard">
+      <MetaData title="Update User | Foodiee" />
+      <div className="row w-100">
         <SideBar />
-        <div className="newProductContainer">
+        <div className="col-md-10 mt-5 pt-5">
           {loading ? (
             <Loader />
           ) : (
-            <form
-              className="createProductForm"
+            <div className="row justify-content-center ">
+          <div className="col-md-6">
+              <form
               onSubmit={updateUserSubmitHandler}
             >
-              <h1>Update User</h1>
+              <h1 className="text-center">Update User</h1>
 
-              <div>
-                <PersonIcon />
+              <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <PersonIcon />
+                    </div>
                 <input
                   type="text"
+                  className="form-control" 
                   placeholder="Name"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </div>
-              <div>
-                <MailOutlineIcon />
+
+              <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <MailOutlineIcon />
+                    </div>
                 <input
+                className="form-control" 
                   type="email"
                   placeholder="Email"
                   required
@@ -96,9 +104,14 @@ const UpdateUser = () => {
                 />
               </div>
 
-              <div>
-                <VerifiedUserIcon />
-                <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <div className="input-group mb-3">
+                    <div className="input-group-prepend px-2">
+                          <VerifiedUserIcon />
+                    </div>
+                
+                <select
+                className="form-select"
+                 value={role} onChange={(e) => setRole(e.target.value)}>
                   <option value="">Choose Role</option>
                   <option value="admin">Admin</option>
                   <option value="user">User</option>
@@ -106,7 +119,7 @@ const UpdateUser = () => {
               </div>
 
               <Button
-                id="createProductBtn"
+                className="btn bg-warning text-light w-100"
                 type="submit"
                 disabled={
                   updateLoading ? true : false || role === "" ? true : false
@@ -115,6 +128,8 @@ const UpdateUser = () => {
                 Update
               </Button>
             </form>
+            </div>
+            </div>
           )}
         </div>
       </div>

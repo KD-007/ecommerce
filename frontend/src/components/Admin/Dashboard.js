@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import Sidebar from "./Sidebar";
-import "./dashboard.css";
 import { Link } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import { useSelector, useDispatch } from "react-redux";
-import { Typography } from "@mui/material";
 import { Line, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Chart } from "react-chartjs-2";
@@ -65,40 +63,53 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard">
-      <MetaData title="Dashboard - Admin Panel| E-Commerce" />
+    <div className="row w-100">
+      <MetaData title="Dashboard - Admin Panel| Foodiee" />
       <Sidebar />
 
-      <div className="dashboardContainer">
-        <Typography component="h1">Dashboard</Typography>
-
-        <div className="dashboardSummary">
-          <div>
-            <p>
+      <div className="col-md-10 mt-5 pt-3">
+        <div className="row w-100 text-center">
+ 
+            <h2 className="bg-primary text-light p-2" >
               Total Amount <br /> ₹{Math.round(totalAmount * 100) / 100}
-            </p>
-          </div>
-          <div className="dashboardSummaryBox2">
-            <Link to="/admin/products">
-              <p style={{fontSize:"2vw"}}>Product</p>
-              <p  >{products && products?.length}</p>
+            </h2>
+    
+          <div className="d-flex justify-content-center ">
+            <Link to="/admin/products" className="text-decoration-none">
+              <div className="bg-primary rounded-circle text-light p-3 m-3">
+              <h5 >Product
+                <br />
+                {products && products?.length}
+              </h5>
+  
+              </div>
             </Link>
-            <Link to="/admin/orders">
-              <p style={{fontSize:"2vw"}} >Orders</p>
-              <p>{orders && orders?.length}</p>
+            <Link to="/admin/orders" className="text-decoration-none">
+            <div className="bg-danger rounded-circle text-light p-3 m-3">
+              <h5 >Orders
+                <br />
+                {orders && orders?.length}
+              </h5>
+  
+              </div>
             </Link>
-            <Link to="/admin/users">
-              <p style={{fontSize:"2vw"}} >Users</p>
-              <p>{users && users?.length}</p>
+            <Link to="/admin/users" className="text-decoration-none">
+            <div className="bg-secondary rounded-circle text-light p-3 px-4 m-3">
+              <h5 >Users
+                <br />
+                {users && users?.length}
+              </h5>
+  
+              </div>
             </Link>
           </div>
         </div>
 
-        <div className="lineChart">
+        <div className="d-flex justify-content-center" style={{maxHeight:"25vmax"}}>
           <Line data={lineState} />
         </div>
 
-        <div className="doughnutChart">
+        <div className="d-flex justify-content-center" style={{maxHeight:"25vmax"}}>
           <Doughnut data={doughnutState} />
         </div>
       </div>

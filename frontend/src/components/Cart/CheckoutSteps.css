@@ -9,9 +9,9 @@
 
 .MuiStepConnector-active,
 .MuiStepConnector-completed {
-    background-color: rgb(97, 61, 41);
+    background-color: rgb(222, 163, 25);
 }
 
 .stepper {
-    padding-top: 8vmax;
+    padding-top: 10vmax;
 }

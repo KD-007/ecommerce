@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component" 
 
+
 const ProductCard = ({ product }) => {
   const options = {
     value: product.ratings,
@@ -9,17 +10,25 @@ const ProductCard = ({ product }) => {
     isHalf: true,
   };
   return (
-    <Link className="productCard" to={`/product/${product._id}`}>
-      <img src={ product.image && product.image[0]} alt={product.name} />
-      <p>{product.name}</p>
-      <div>
-        <ReactStars {...options} />{" "}
-        <span className="productCardSpan">
-          {" "}
-          ({product.numOfReviews} Reviews)
-        </span>
+    <Link className="text-decoration-none m-3  " to={`/product/${product._id}`}>
+
+      <div className="card product-card border-0"  style={{maxWidth:'12rem' , maxHeight:'15rem' , minHeight: '12px' , minWidth:'10px'}}>
+  <img src={ product.image && product.image[0]} alt={product.name} className="card-img-top" />
+  <div className="card-body">
+    <p className="card-text m-0 ">{product.name}</p>
+    <div className="row">
+      <div className="col-md-6 ">
+        <ReactStars {...options} />
       </div>
-      <span>{`₹${product.price}`}</span>
+      <div className="col-6 text-start p-0">
+        <span className="badge text-secondary  m-0 ">({product.numOfReviews} Reviews)</span>
+
+      </div>
+    </div>
+      <span className="fw-bold" >{`₹${product.price}`}</span>
+        <br />
+  </div>
+</div>
     </Link>
   );
 };

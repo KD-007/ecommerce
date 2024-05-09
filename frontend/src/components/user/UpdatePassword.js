@@ -1,12 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
-import "./UpdatePassword.css";
 import Loader from "../layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, updatePassword } from "../../redux/actions/UserActions";
 import MetaData from "../layout/MetaData";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
-import LockIcon from "@mui/icons-material/Lock";
-import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { useNavigate } from "react-router-dom";
 import { notify } from "../../utils/Notification";
 
@@ -52,54 +48,44 @@ const UpdatePassword = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title="Change Password | E-commerce" />
-          <div className="updatePasswordContainer">
-            <div className="updatePasswordBox">
-              <h2 className="updatePasswordHeading">Update Password</h2>
+          <MetaData title="Change Password | Foodiee" />
 
-              <form
-                className="updatePasswordForm"
-                onSubmit={updatePasswordSubmit}
-              >
-                <div className="loginPassword">
-                  <VpnKeyIcon />
-                  <input
-                    type="password"
-                    placeholder="Current Password"
+{/* ------------------- */}
+
+        <div className="row justify-content-center mt-5 m-2 pt-5">
+            <div className=" col-md-6 mt-5 border shadow-lg  rounded-3  ">
+              <h2 className="text-center text-warning p-3 border-bottom" >Update Password</h2>
+            <form className="p-3 loginForm" style={{maxWidth:'700px'}} onSubmit={updatePasswordSubmit} >
+            <div className="mb-3">
+          <input type="password" className="form-control"  placeholder="Current Password"
                     required
                     value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                  />
-                </div>
-
-                <div className="loginPassword">
-                  <LockOpenIcon />
-                  <input
-                    type="password"
-                    placeholder="New Password"
+                    onChange={(e) => setOldPassword(e.target.value)}/>
+        </div>
+        <div className="mb-3">
+          
+          <input type="password" className="form-control"  placeholder="New Password"
                     required
                     value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                </div>
-                <div className="loginPassword">
-                  <LockIcon />
-                  <input
-                    type="password"
-                    placeholder="Confirm Password"
+                    onChange={(e) => setNewPassword(e.target.value)}/>
+        </div>
+        <div className="mb-3">
+          <input type="password" className="form-control"  placeholder="Confirm Password"
                     required
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                </div>
-                <input
-                  type="submit"
-                  value="Change"
-                  className="updatePasswordBtn"
-                />
-              </form>
+                    onChange={(e) => setConfirmPassword(e.target.value)}/>
+        </div>
+      
+        <div className="text-center">
+
+          <button type="submit" className="btn btn-outline-warning  fw-bold ">Change</button>
+        </div>
+      </form>
             </div>
-          </div>
+            </div>
+
+
+
         </Fragment>
       )}
     </Fragment>

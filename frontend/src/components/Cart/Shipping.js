@@ -5,7 +5,6 @@ import { notify } from "../../utils/Notification";
 import { saveShippingInfo } from "../../redux/actions/cartActions";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../layout/MetaData";
-import "./Shipping.css";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import LocationCityIcon from "@mui/icons-material/LocationCity";
@@ -42,71 +41,83 @@ const Shipping = () => {
 
   return (
     <>
-      <MetaData title="Shipping Details | E-Cart - Online Shopping website" />
+      <MetaData title="Shipping Details | Foodie" />
 
       <CheckoutSteps activeStep={0} />
 
-      <div className="shippingContainer">
-        <div className="shippingBox">
+      <div className="row w-100 ">
+        <div className="container">
           {" "}
-          <h2 className="shippingHeading">
+          <h2 className="text-center w-100 ">
             <ShoppingCartCheckoutIcon />
             Shipping Details
           </h2>
           <form
-            className="shippingForm"
+            
             encType="multipart/form-data"
             onSubmit={shippingSubmit}
           >
-            <div>
-              <HomeIcon />
-              <input
-                type="text"
-                placeholder="Address"
-                required
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-              />
-            </div>
 
-            <div>
-              <LocationCityIcon />
-              <input
-                type="text"
-                placeholder="City"
-                required
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </div>
 
-            <div>
-              <PinDropIcon />
-              <input
-                type="number"
-                placeholder="Pin Code"
-                required
-                value={pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
-              />
-            </div>
+          <div className="input-group mb-3">
+          <div className="input-group-prepend px-2">
+          <HomeIcon />
+          </div>
+          <input type="text" 
+          className="form-control" 
+          placeholder="Address"
+          required
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
 
-            <div>
-              <PhoneAndroidIcon />
-              <input
-                type="number"
-                placeholder="Phone Number"
-                required
-                value={phoneNo}
-                onChange={(e) => setPhoneNo(e.target.value)}
-                size="10"
-              />
-            </div>
+        <div className="input-group mb-3">
+          <div className="input-group-prepend px-2">
+          <LocationCityIcon />
+          </div>
+          <input type="text" 
+          className="form-control" 
+          placeholder="City"
+          required
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          />
+        </div>
 
-            <div>
-              <PublicIcon />
+        <div className="input-group mb-3">
+          <div className="input-group-prepend px-2">
+          <PinDropIcon />
+          </div>
+          <input 
+          className="form-control" 
+          type="number"
+          placeholder="Pin Code"
+          required
+          value={pinCode}
+          onChange={(e) => setPinCode(e.target.value)}
+          />
+        </div>
+        <div className="input-group mb-3">
+          <div className="input-group-prepend px-2">
+          <PhoneAndroidIcon />
+          </div>
+          <input 
+          className="form-control" 
+          type="number"
+          placeholder="Phone Number"
+          required
+          value={phoneNo}
+          onChange={(e) => setPhoneNo(e.target.value)}
+          size="10"
+          />
+        </div>
 
-              <select
+        <div className="input-group mb-3">
+          <div className="input-group-prepend px-2">
+          <PublicIcon />
+          </div>
+          <select className="form-select"
                 required
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
@@ -119,13 +130,17 @@ const Shipping = () => {
                     </option>
                   ))}
               </select>
-            </div>
+        </div>
+
 
             {country && (
-              <div>
-                <TransferWithinAStationIcon />
+                      <div className="input-group mb-3">
+                      <div className="input-group-prepend px-2">
+                      <TransferWithinAStationIcon />
+                      </div>
+                
 
-                <select
+                <select className="form-select"
                   required
                   value={state}
                   onChange={(e) => setState(e.target.value)}
@@ -141,10 +156,9 @@ const Shipping = () => {
               </div>
             )}
 
-            <input
+            <input className="btn btn-warning w-100 text-light"
               type="submit"
               value="Continue"
-              className="shippingBtn"
               disabled={state ? false : true}
             />
           </form>
